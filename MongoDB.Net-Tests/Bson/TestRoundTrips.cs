@@ -154,7 +154,7 @@ namespace MongoDB.Driver.Bson
             writer.Flush();
             ms.Seek(0, SeekOrigin.Begin);
 
-            BsonReader reader = new BsonReader(ms);
+            BsonReader reader = new BsonReader(new DefaultDocumentFactory(), ms);
             return reader.Read();
         }   
     }

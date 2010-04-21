@@ -20,11 +20,21 @@ namespace MongoDB.Driver
         /// Initializes a new instance of the <see cref="Mongo"/> class.
         /// </summary>
         /// <param name="connectionString">The connection string.</param>
-        public Mongo (string connectionString){
+		public Mongo(string connectionString) : this(string.Empty, null){
+		}
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Mongo"/> class.
+		/// </summary>
+		/// <param name="connectionString">The connection string.</param>
+		/// <param name="documentFactory">The document factory for <see cref="Document" /></param>
+		public Mongo(string connectionString, IDocumentFactory documentFactory)
+		{
             if (connectionString == null)
                 throw new ArgumentNullException ("connectionString");
             
             connection = ConnectionFactory.GetConnection (connectionString);
+			connection.DocumentFactory = documentFactory ?? new DefaultDocumentFactory();
         }
 
         /// <summary>

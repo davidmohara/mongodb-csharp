@@ -64,6 +64,11 @@ namespace MongoDB.Driver.Connections
             get { return _factory.ConnectionString; }
         }
 
+		/// <summary>
+		/// Factory that is used to generate all returned documents
+		/// </summary>
+		public IDocumentFactory DocumentFactory { get; set; }
+
         /// <summary>
         /// Used for sending a message that gets a reply such as a query.
         /// </summary>
@@ -75,7 +80,7 @@ namespace MongoDB.Driver.Connections
                 throw new MongoCommException ("Operation cannot be performed on a closed connection.", this);
             }
             try {
-                ReplyMessage reply = new ReplyMessage ();
+                ReplyMessage reply = new ReplyMessage (DocumentFactory);
                 lock (_connection) {
                     msg.Write (_connection.GetStream ());
                     reply.Read (_connection.GetStream ());

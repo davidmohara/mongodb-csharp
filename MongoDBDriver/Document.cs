@@ -13,7 +13,6 @@ namespace MongoDB.Driver
         private List<String> orderedKeys;
         private IComparer<string> keyComparer;
 
-
         public Document() : this(null)
         {
         }

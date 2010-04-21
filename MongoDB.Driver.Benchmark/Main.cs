@@ -217,7 +217,7 @@ namespace MongoDB.Driver.Benchmark
         static void DoDecode(byte[] buff){
             MemoryStream ms = new MemoryStream(buff);
             for(int i = 0; i < perTrial; i++){
-                BsonReader reader = new BsonReader(ms);
+                BsonReader reader = new BsonReader(new DefaultDocumentFactory(), ms);
                 reader.Read();
                 ms.Seek(0,SeekOrigin.Begin);
             }

@@ -75,6 +75,9 @@
   <ItemGroup>
     <Compile Include="Bson\BsonDataType.cs" />
     <Compile Include="Bson\BsonInfo.cs" />
+    <Compile Include="ComparerDocumentFactory.cs" />
+    <Compile Include="DefaultDocumentFactory.cs" />
+    <Compile Include="IDocumentFactory.cs" />
     <Compile Include="Collection.cs" />
     <Compile Include="CollectionMetaData.cs" />
     <Compile Include="Connections\Connection.cs" />

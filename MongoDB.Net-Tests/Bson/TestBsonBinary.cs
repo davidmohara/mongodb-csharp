@@ -20,7 +20,7 @@ namespace MongoDB.Driver.Bson
             writer.Write (idoc);
             
             stream.Seek (0, SeekOrigin.Begin);
-            BsonReader reader = new BsonReader (stream);
+            BsonReader reader = new BsonReader (new DefaultDocumentFactory(), stream);
             Document odoc = reader.Read ();
             
             Assert.AreEqual (idoc.ToString (), odoc.ToString ());
@@ -33,7 +33,7 @@ namespace MongoDB.Driver.Bson
             
             byte[] data = DecodeHex (hex);
             MemoryStream inmem = new MemoryStream (data);
-            BsonReader inreader = new BsonReader (inmem);
+            BsonReader inreader = new BsonReader (new DefaultDocumentFactory(), inmem);
             Document indoc = new Document ();
             indoc = inreader.Read ();
             

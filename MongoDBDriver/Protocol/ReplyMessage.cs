@@ -4,9 +4,16 @@ using MongoDB.Driver.Bson;
 
 namespace MongoDB.Driver.Protocol
 {
-    public class ReplyMessage:MessageBase
+    public class ReplyMessage : MessageBase
     {
-        // normally zero, non-zero on query failure     
+		private IDocumentFactory documentFactory;
+
+		public ReplyMessage(IDocumentFactory documentFactory)
+		{
+			this.documentFactory = documentFactory;
+		}
+
+		// normally zero, non-zero on query failure     
         public int ResponseFlag { get; set; }
 
         // id of the cursor created for this query response 
@@ -20,16 +27,17 @@ namespace MongoDB.Driver.Protocol
 
         public Document[] Documents { get; set; }
 
-        public void Read(Stream stream){
+		public void Read(Stream stream)
+		{
             stream = new BufferedStream(stream, 256);
             BinaryReader reader = new BinaryReader(stream);
             this.Header = ReadHeader(reader);
             this.ResponseFlag = reader.ReadInt32();
             this.CursorID = reader.ReadInt64();
             this.StartingFrom = reader.ReadInt32();
-            this.NumberReturned = reader.ReadInt32();            
-            
-            BsonReader breader = new BsonReader(stream);
+            this.NumberReturned = reader.ReadInt32();
+
+			BsonReader breader = new BsonReader(documentFactory, stream);
             List<Document> docs = new List<Document>();
             for(int num = 0; num < this.NumberReturned; num++){
                 docs.Add(breader.Read());
