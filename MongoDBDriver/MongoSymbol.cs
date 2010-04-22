@@ -8,12 +8,19 @@ namespace MongoDB.Driver
     /// </summary>
     public struct MongoSymbol : IEquatable<MongoSymbol>, IEquatable<String>, IComparable<MongoSymbol>, IComparable<String>
     {
-        public string Value{get; private set;}
+		private string _value;
+		public string Value
+		{
+			get
+			{
+				return _value;
+			}
+		}
         
             
         public MongoSymbol(string val){
             if(string.IsNullOrEmpty(val)) throw new ArgumentNullException("Symbol Value");
-            this.Value = String.Intern(val);
+            _value = String.Intern(val);
             
         }
         

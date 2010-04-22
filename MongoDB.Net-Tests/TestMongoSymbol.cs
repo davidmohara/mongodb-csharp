@@ -95,7 +95,7 @@ namespace MongoDB.Driver
             Assert.IsFalse(a == bstr);
             Assert.IsFalse(bstr == a);
             
-            Assert.IsFalse(a == null);
+            Assert.IsFalse(a == (string)null);
         }
         
         [Test]
@@ -117,7 +117,7 @@ namespace MongoDB.Driver
             Assert.IsTrue(a != bstr);
             Assert.IsTrue(bstr != a);
             
-            Assert.IsTrue(a != null);
+            Assert.IsTrue(a != (string)null);
         }
         
         [Test]
